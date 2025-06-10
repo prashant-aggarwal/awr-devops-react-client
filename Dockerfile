@@ -1,22 +1,23 @@
 # Stage 1: Build React app
-FROM node:18-alpine AS build
+FROM node:16-alpine AS build
 
 WORKDIR /app
 
-# Install dependencies and build the app
+# Install dependencies
 COPY package.json package-lock.json ./
 RUN npm install
 
+# Copy source and build
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve using a lightweight web server (nginx)
+# Stage 2: Serve with Nginx
 FROM nginx:stable-alpine
 
-# Copy built React app to nginx public folder
+# Copy React build from previous stage
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Copy custom nginx config (optional, for SPA support)
+# Optional: use custom nginx config to support client-side routing
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
