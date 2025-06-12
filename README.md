@@ -29,6 +29,3 @@
 9. Set the Script Path as Jenkinsfile using Pipeline -> Pipeline script from SCM section.
 10. Save the changes and click **Build Now** to trigger the pipeline.
 11. Check the Console Output associated with the lastest job for verification.
-
-      
-
